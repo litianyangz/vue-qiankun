@@ -30,14 +30,14 @@ const routes = [
     },
     {
         path: '/',
-        name: 'about',
+        name: 'mine',
         icon: 'el-icon-s-data',
         leaf: true,
         component: () => import('@/views/Home.vue'),
         children: [
             {
-                path: '/about',
-                name: '关于',
+                path: '/mine',
+                name: '我的',
                 component: () => import('@/views/mine/Mine.vue'),
                 meta: {
                     isQiankun: true
