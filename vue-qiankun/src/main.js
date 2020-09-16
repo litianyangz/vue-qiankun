@@ -3,15 +3,16 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
+import Router from 'vue-router'
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/common.scss'
 import { registerMicroApps, initGlobalState, start } from "qiankun"
 
 Vue.use(ElementUI);
+Vue.use(Router);
 let state = {
-    mt: 'init',
-    name: ''
-};
+    href: ''
+}
 const actions = initGlobalState(state)
 Vue.config.productionTip = false
 Vue.prototype.$actions = actions
@@ -31,12 +32,14 @@ function genActiveRule(routerPrefix) {
 
 // 注册子应用
 registerMicroApps(
-    [{
-        name: "qiankunchild",
-        entry: "//localhost:9999",
-        container: '#root-view',
-        activeRule: genActiveRule("/qiankunchild"),
-    }], {
+    [
+        {
+            name: "qiankunchild",
+            entry: "//localhost:9999",
+            container: '#root-view',
+            activeRule: "/qiankunchild",
+        }
+    ], {
         beforeLoad: [
             app => {
                 console.log("before load", app);
@@ -56,7 +59,9 @@ registerMicroApps(
 );
 
 actions.onGlobalStateChange((state, prev) => {
-    state = state;
+    if (state.href) {
+        window.location.href = state.href;
+    }
 });
 // 启动
 start();

@@ -3,9 +3,12 @@ import App from './App.vue'
 import routes from './router'
 import VueRouter from 'vue-router'
 import store from './store'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import './public-path';
 Vue.config.productionTip = false
 Vue.use(VueRouter)
+Vue.use(ElementUI)
 
 
 let router = null;
@@ -32,6 +35,8 @@ export async function bootstrap() {
 }
 
 export async function mount(props) {
+    Vue.prototype.$onGlobalStateChange = props.onGlobalStateChange
+    Vue.prototype.$setGlobalState = props.setGlobalState
     render();
 }
 

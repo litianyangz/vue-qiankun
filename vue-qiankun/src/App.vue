@@ -1,27 +1,30 @@
 <template>
     <div id="main-root">
-        <router-view/>
+        <main-menu :isChildApp="isChildApp"></main-menu>
     </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 import MainMenu from '@/components/MainMenu.vue'
-
 export default {
   name: "App",
   methods: {
     chageChildValue() {
-      this.$actions.setGlobalState({
-        mt: 2
-      })
+      
     }
   },
   components: {
-      MainMenu
+     MainMenu
   },
   computed: {
-       
+       isChildApp() {
+           if(this.$route.path.match('qiankunchild')) {
+               return true
+           } else {
+               return false
+           }
+      },
   }
 };
 </script>
